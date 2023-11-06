@@ -6,16 +6,22 @@
 }
 ul {
 	list-style-type: none;
+	margin: 0;
+	padding: 0;
 }
 a {
 	text-decoration: none;
 }
 header {
-	background-color: #18052b;
-	box-shadow: 0 0 2px rgba(23, 2, 41, 0.9), 0 0 4px rgba(23, 2, 41, 0.4), 0 0 1rem rgba(23, 2, 41, 0.3), 0 0 4rem rgba(23, 2, 41, 0.1);
+	background-color: #3a3f44;
+	border: #17191b solid 1px;
+	box-sizing: border-box;
+	height: 80px;
+	display: flex;
+	align-items: center;
 }
 .container {
-	width: 80%;
+	width: 90%;
 	margin: 0 auto;
 }
 .nav_menu {
@@ -32,16 +38,105 @@ header {
 	width: 100%;
 	height: 80px;
 	line-height: 80px;
-	color: #fff;
+	color: var(--bs-card-cap-color);
 	text-transform: uppercase;
-	text-shadow: 0 0 1px rgba(255, 255, 255, 0.6), 0 0 3px rgba(255, 255, 255, 0.5), 0 0 0.5rem rgba(255, 255, 255, 0.3), 0 0 2rem rgba(255, 255, 255, 0.2);
 }
 .nav_menu li:hover {
-	background-color: rgb(32, 5, 57);
-	border-bottom: 1px solid #fff;
+	background-color: #272b30;
 }
 
 .active{
-	background-color: rgb(32, 5, 57);
-	border-bottom: 1px solid #fff;
+	background-color: #272b30;
+}
+
+.burger {
+	display: none;
+}
+.burger_menu {
+	display: none;
+}
+
+@media screen and (max-width: 1000px) {
+	.nav_menu {
+		display: none;
+	}
+	.burger {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		border: #17191b solid 1px;
+		justify-content: center;
+		height: 45px;
+		width: 55px;
+		border-radius: 5px;
+		cursor: pointer;
+		float: right;
+	}
+	.burger span {
+		display: block;
+		height: 3px;
+		background-color: #a6a8ab;
+		border-radius: 2px;
+		width: 40px;
+	}
+	.burger span:not(:last-child) {
+		margin-bottom: 8px;
+	}
+	.burger_menu.open {
+		display: block;
+		width: 100vw;
+		height: 100vh;
+		position: absolute;
+		top: 0;
+		left: 0;
+		background-color: #272b30;
+		padding: 20px;
+	}
+	.burger-nav_menu{
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		margin-top: 50px;
+	}
+	.burger-nav_menu li {
+		width: 100%;
+		text-align: center;
+	}
+	.burger-nav_menu a {
+		display: inline-block;
+		text-transform: uppercase;
+		font-size: 24px;
+		width: 100%;
+		height: 80px;
+		line-height: 80px;
+		color: var(--bs-card-cap-color);
+		width: 100%;
+		height: 100%;
+	}
+	.close {
+		color: var(--bs-card-cap-color);
+		font-size: 30px;
+		position: absolute;
+		right: 40px;
+	}
+	.active{
+		background-color: #3a3f44;
+	}
+}
+
+/* LOADER */
+.loader {
+	border: 4px solid #f3f3f3;
+	border-top: 4px solid #3498db;
+	border-radius: 50%;
+	width: 40px;
+	height: 40px;
+	animation: spin 2s linear infinite;
+	display: none;
+}
+
+@keyframes spin {
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
 }

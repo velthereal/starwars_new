@@ -1,25 +1,48 @@
 document.addEventListener('DOMContentLoaded', ()=>{
+	// BURGER MENU
+	let burger = document.querySelector('.burger');
+	let burger_menu = document.querySelector('.burger_menu');
+	let close_btn = document.querySelector('.close');
+	burger.addEventListener('click', function(){
+		burger_menu.classList.add('open');
+	});
+	close_btn.addEventListener('click', function(){
+		burger_menu.classList.remove('open');
+	})
+
+	// API
+	showLoader();
 	getPersons(1, true);
 });
 
+function showLoader() {
+	let loader = document.querySelector('.loader');
+	loader.style.display = 'block';
+}
+
+function hideLoader() {
+	let loader = document.querySelector('.loader');
+	loader.style.display = 'none';
+}
+
 function getPersons(page, create = false){
-	let xml = new XMLHttpRequest();
 	let url = `https://swapi.dev/api/films/?page=${page}`;
-	xml.open('GET', url);
-	xml.responseType = 'json';
-	xml.send();
-	xml.onload = ()=>{
-		showAllPerson(xml.response.results);
-	}
-	if(create){
-		xml.onreadystatechange = ()=>{
-			if(xml.readyState === 4){
-				createPagination(xml.response.count, xml.response.results.length);
-				document.querySelector('.number_page').classList.add('visible');
-				activePagination();
-			}
+
+	fetch(url)
+	.then(response => response.json())
+	.then(data => {
+		hideLoader();
+		showAllPerson(data.results);
+		if(create){
+			createPagination(data.count, data.results.length);
+			document.querySelector('.number_page').classList.add('visible');
+			activePagination();
 		}
-	}
+	})
+	.catch(error => {
+		hideLoader();
+		console.error('Error:', error);
+	})
 }
 
 function showAllPerson(data){
