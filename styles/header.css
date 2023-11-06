@@ -1,3 +1,4 @@
+/* ОБНУЛЕННЯ СТИЛІВ */
 * {
 	margin: 0;
 	padding: 0;
@@ -12,6 +13,9 @@ ul {
 a {
 	text-decoration: none;
 }
+
+/* -------------------------------------------------- */
+/* MAIN STYLES */
 header {
 	background-color: #3a3f44;
 	border: #17191b solid 1px;
@@ -43,12 +47,16 @@ header {
 }
 .nav_menu li:hover {
 	background-color: #272b30;
+	border-bottom: solid 1px #17191b;
 }
 
+/* ACTIVE PAGE */
 .active{
 	background-color: #272b30;
+	box-shadow: inset 0 0 2px #17191b;
 }
 
+/* BURGER MENU */
 .burger {
 	display: none;
 }
@@ -56,10 +64,13 @@ header {
 	display: none;
 }
 
+/* 1000px and less */
 @media screen and (max-width: 1000px) {
 	.nav_menu {
 		display: none;
 	}
+
+	/* BURGER MENU */
 	.burger {
 		display: flex;
 		flex-direction: column;
@@ -120,22 +131,31 @@ header {
 		position: absolute;
 		right: 40px;
 	}
+
+	/* ACTIVE PAGE */
 	.active{
 		background-color: #3a3f44;
 	}
 }
 
 /* LOADER */
-.loader {
-	border: 4px solid #f3f3f3;
-	border-top: 4px solid #3498db;
-	border-radius: 50%;
-	width: 40px;
-	height: 40px;
-	animation: spin 2s linear infinite;
+.loader-container {
+	position: absolute;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	display: none;
 }
-
+.loader {
+	border: 8px solid #3a3f44;
+	border-top: 8px solid #a6a8ab;
+	border-radius: 50%;
+	width: 80px;
+	height: 80px;
+	animation: spin 2s linear infinite;
+}
 @keyframes spin {
 	0% { transform: rotate(0deg); }
 	100% { transform: rotate(360deg); }

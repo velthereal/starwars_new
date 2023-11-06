@@ -1,5 +1,19 @@
 @import url(header.css);
 
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: sans-serif;
+}
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+a {
+	text-decoration: none;
+}
 .content {
 	margin: 15px 30px;
 	display: grid;

@@ -1,28 +1,41 @@
-document.addEventListener('DOMContentLoaded', ()=>{
-	getPersons(1, true);
+document.addEventListener('DOMContentLoaded', function(){
+	// API
+	showLoader();
+	getSpecies(1, true);
 });
 
-function getPersons(page, create = false){
-	let xml = new XMLHttpRequest();
-	let url = `https://swapi.dev/api/species/?page=${page}`;
-	xml.open('GET', url);
-	xml.responseType = 'json';
-	xml.send();
-	xml.onload = () => {
-		showAllPerson(xml.response.results);
-	}
-	if(create){
-		xml.onreadystatechange = () =>{
-			if(xml.readyState === 4){
-				createPagination(xml.response.count, xml.response.results.length);
-				document.querySelector('.number_page').classList.add('visible');
-				activePagination();
-			}
-		}
-	}
+// LOADER
+function showLoader() {
+	let loader = document.querySelector('.loader-container');
+	loader.style.display = 'flex';
+}
+function hideLoader() {
+	let loader = document.querySelector('.loader-container');
+	loader.style.display = 'none';
 }
 
-function showAllPerson(data){
+// GET API
+function getSpecies(page, create = false){
+	let url = `https://swapi.dev/api/species/?page=${page}`;
+	fetch(url)
+	.then(response => response.json())
+	.then(data => {
+		hideLoader();
+		showAllSpecies(data.results);
+		if(create){
+			createPagination(data.count, data.results.length);
+			document.querySelector('.number_page').classList.add('visible');
+			activePagination();
+		}
+	})
+	.catch(error => {
+		hideLoader();
+		console.error('Error:', error);
+	})
+}
+
+// SHOW INFO
+function showAllSpecies(data){
 	let content = document.querySelector('.content');
 	content.innerHTML = '';
 	data.forEach(element => {
@@ -32,9 +45,10 @@ function showAllPerson(data){
 						</div>`;
 		content.insertAdjacentHTML('beforeend', str);
 	});
-	showPerson(data);
+	showSpecie(data);
 }
 
+// PAGINATION
 function activePagination(){
 	let page = document.querySelectorAll('.page-item');
 	for(let i = 0; i < page.length; i++){
@@ -43,11 +57,10 @@ function activePagination(){
 				page[i].classList.remove('active');
 			}
 			this.classList.add('active');
-			getPersons(this.firstElementChild.textContent);
+			getSpecies(this.firstElementChild.textContent);
 		})
 	}
 }
-
 function createPagination(all, current){
 	let line = '';
 	let number = parseInt(all / current) + (all / current > parseInt(all / current) ? 1 : 0);
@@ -61,7 +74,8 @@ function createPagination(all, current){
 	document.querySelector('.pagination li:first-child').insertAdjacentHTML('afterend', line);
 }
 
-function showPerson(data){
+// SHOW DETAILS
+function showSpecie(data){
 	let blocks = document.querySelectorAll('.content div.card');
 	for(let i = 0; i < blocks.length; i++){
 		blocks[i].children[1].onerror = function(){
@@ -78,7 +92,7 @@ function showPerson(data){
 		document.querySelector('.details').classList.remove('show');
 	})
 }
-
+// CREATE DETAILS
 function showDetails(data, url){
 	let img = document.querySelector('.details .card-header img');
 	let li = document.querySelectorAll('.details .info');

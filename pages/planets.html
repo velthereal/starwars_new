@@ -9,46 +9,85 @@
 	<link rel="stylesheet" href="../styles/main.css">
 </head>
 <body>
-	<header>
-		<div class="container">
-			<nav>
-				<ul class="nav_menu">
-					<li>
-						<a href="people.html">Characters</a>
-					</li>
-					<li>
-						<a href="films.html">Films</a>
-					</li>
-					<li>
-						<a class="active" href="planets.html">Planets</a>
-					</li>
-					<li>
-						<a href="species.html">Species</a>
-					</li>
-					<li>
-						<a href="starships.html">Starships</a>
-					</li>
-					<li>
-						<a href="vehicles.html">Vehicles</a>
-					</li>
-				</ul>
-			</nav>
-		</div>
-	</header>
-
-
+		<!-- HEADER -->
+		<header>
+			<div class="container">
+				<nav>
+					<ul class="nav_menu">
+						<li>
+							<a href="people.html">Characters</a>
+						</li>
+						<li>
+							<a href="films.html">Films</a>
+						</li>
+						<li>
+							<a class="active" href="planets.html">Planets</a>
+						</li>
+						<li>
+							<a href="species.html">Species</a>
+						</li>
+						<li>
+							<a href="starships.html">Starships</a>
+						</li>
+						<li>
+							<a href="vehicles.html">Vehicles</a>
+						</li>
+					</ul>
+	
+					<!-- BURGER -->
+					<div class="burger">
+						<span></span>
+						<span></span>
+						<span></span>
+					</div>
+					<div class="burger_menu">
+						<span class="close">X</span>
+						<ul class="burger-nav_menu">
+							<li>
+								<a href="people.html">Characters</a>
+							</li>
+							<li>
+								<a href="films.html">Films</a>
+							</li>
+							<li>
+								<a class="active" href="planets.html">Planets</a>
+							</li>
+							<li>
+								<a href="species.html">Species</a>
+							</li>
+							<li>
+								<a href="starships.html">Starships</a>
+							</li>
+							<li>
+								<a href="vehicles.html">Vehicles</a>
+							</li>
+						</ul>
+					</div>
+				</nav>
+			</div>
+		</header>
+	
+	<!-- LOADER -->
+	<div class="loader-container">
+		<div class="loader"></div>
+	</div>
+	
+	<!-- PAGINATION -->
 	<div class="number_page">
 		<ul class="pagination">
-		  <li class="page-item disabled">
-			 <a class="page-link" href="#">&laquo;</a>
-		  </li>
-		  <li class="page-item">
-			 <a class="page-link" href="#">&raquo;</a>
-		  </li>
+			<li class="page-item disabled">
+				<a class="page-link" href="#">&laquo;</a>
+			</li>
+			<li class="page-item">
+				<a class="page-link" href="#">&raquo;</a>
+			</li>
 		</ul>
-	 </div>
+	</div>
+
+	<!-- CONTENT -->
 	<div class="content"></div>
 
+	<!-- DETAILS -->
 	<div class="details">
 		<div class="card border-info mb-3">
 			<i>&#10008;</i>
@@ -83,7 +122,8 @@
 		</div>
 	</div>
 
+
+	<script src="../js/header.js"></script>
 	<script src="../js/planets.js"></script>
-	
 </body>
 </html>

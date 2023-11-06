@@ -1,38 +1,28 @@
-document.addEventListener('DOMContentLoaded', ()=>{
-	// BURGER MENU
-	let burger = document.querySelector('.burger');
-	let burger_menu = document.querySelector('.burger_menu');
-	let close_btn = document.querySelector('.close');
-	burger.addEventListener('click', function(){
-		burger_menu.classList.add('open');
-	});
-	close_btn.addEventListener('click', function(){
-		burger_menu.classList.remove('open');
-	})
-
+document.addEventListener('DOMContentLoaded', function(){
 	// API
 	showLoader();
-	getPersons(1, true);
+	getFilms(1, true);
 });
 
+// LOADER
 function showLoader() {
-	let loader = document.querySelector('.loader');
-	loader.style.display = 'block';
+	let loader = document.querySelector('.loader-container');
+	loader.style.display = 'flex';
 }
-
 function hideLoader() {
-	let loader = document.querySelector('.loader');
+	let loader = document.querySelector('.loader-container');
 	loader.style.display = 'none';
 }
 
-function getPersons(page, create = false){
+// GET API
+function getFilms(page, create = false){
 	let url = `https://swapi.dev/api/films/?page=${page}`;
 
 	fetch(url)
 	.then(response => response.json())
 	.then(data => {
 		hideLoader();
-		showAllPerson(data.results);
+		showAllFilms(data.results);
 		if(create){
 			createPagination(data.count, data.results.length);
 			document.querySelector('.number_page').classList.add('visible');
@@ -45,7 +35,8 @@ function getPersons(page, create = false){
 	})
 }
 
-function showAllPerson(data){
+// SHOW INFO
+function showAllFilms(data){
 	let content = document.querySelector('.content');
 	content.innerHTML = '';
 	data.forEach(element => {
@@ -55,9 +46,10 @@ function showAllPerson(data){
 						</div>`;
 		content.insertAdjacentHTML('beforeend', str);
 	});
-	showPerson(data);
+	showFilm(data);
 }
 
+// PAGINATION
 function activePagination(){
 	let page = document.querySelectorAll('.page-item');
 	for(let i = 0; i < page.length; i++){
@@ -66,11 +58,10 @@ function activePagination(){
 				page[i].classList.remove('active');
 			}
 			this.classList.add('active');
-			getPersons(this.firstElementChild.textContent);
+			getFilms(this.firstElementChild.textContent);
 		})
 	}
 }
-
 function createPagination(all, current){
 	let line = '';
 	let number = parseInt(all / current) + (all / current > parseInt(all / current) ? 1 : 0);
@@ -84,7 +75,8 @@ function createPagination(all, current){
 	document.querySelector('.pagination li:first-child').insertAdjacentHTML('afterend', line);
 }
 
-function showPerson(data){
+// SHOW DETAILS
+function showFilm(data){
 	let blocks = document.querySelectorAll('.content div.card');
 	for(let i = 0; i < blocks.length; i++){
 		blocks[i].children[1].onerror = function(){
@@ -101,7 +93,7 @@ function showPerson(data){
 		document.querySelector('.details').classList.remove('show');
 	})
 }
-
+// CREATE DETAILS
 function showDetails(data, url){
 	let img = document.querySelector('.details .card-header img');
 	let li = document.querySelectorAll('.details .info');
