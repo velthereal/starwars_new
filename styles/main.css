@@ -1,5 +1,6 @@
 @import url(header.css);
 
+/* ОБНУЛЕННЯ СТИЛІВ */
 * {
 	margin: 0;
 	padding: 0;
@@ -14,11 +15,13 @@ ul {
 a {
 	text-decoration: none;
 }
+
+/* ----------------------------------------- */
 .content {
 	margin: 15px 30px;
 	display: grid;
-	grid-template-columns: repeat(5, 1fr);
-	grid-gap: 10px;
+	grid-template-columns: repeat(4, 1fr);
+	grid-gap: 20px;
 }
 .content .card {
 	text-align: center;
@@ -29,13 +32,10 @@ a {
 	position: relative;
 	z-index: 2;
 	transition: transform 0.5s;
-	box-shadow: 0 0 2px rgba(234,57,184,.9), 0 0 4px rgba(234,57,184,.4), 0 0 1rem rgba(234,57,184,.3), 0 0 4rem rgba(234,57,184,.1);
-	--bs-border-opacity: 0;
-   border-color: rgba(var(--bs-info-rgb),var(--bs-border-opacity))!important;
+	box-shadow: 2px 2px 15px #17191b;
 }
 .card-header{
 	font-size: 1.5em;
-	word-wrap: normal;
 }
 .number_page {
 	display: flex;
@@ -54,10 +54,13 @@ a {
 	left: 0;
 	z-index: 3;
 	display: none;
+	border: #17191b;
+
 }
 .details .card-header {
 	display: flex;
 	align-items: center;
+	background-color: transparent;
 }
 .show {
 	display: flex;
@@ -65,9 +68,11 @@ a {
 	align-items: center;
 }
 .border-info {
-	background-color: rgba(0, 0, 0, .8);
+	background-color: #3A3F43;
+	border: #17191b;
 	display: flex;
 	flex-direction: row;
+	box-shadow: 2px 2px 15px #17191b;
 }
 .details i{
 	position: absolute;
@@ -75,7 +80,7 @@ a {
 	top: 5px;
 	font-size: 1.5em;
 	cursor: pointer;
-	color: #1ba2f6;
+	color: var(--bs-card-cap-color);
 }
 .border-info img {
 	width: 300px;
@@ -91,5 +96,57 @@ ul.card-text li{
 	line-height: 40px;
 }
 ul.card-text li span:first-child {
-	color: #1ba2f6;
+	color: #17191b;
+}
+
+@media screen and (max-width:1000px) {
+	.content {
+		grid-template-columns: repeat(3, 1fr);
+		grid-gap: 10px;
+	}
+	.card-header{
+		font-size: 1em;
+	}
+	.number_page {
+		margin: 5px 10px;
+	}
+	.border-info {
+		width: 80%;
+	}
+	.border-info img {
+		width: 200px;
+	}
+}
+
+@media screen and (max-width:425px) {
+	.content {
+		grid-template-columns: repeat(1, 1fr);
+	}
+	.border-info {
+		width: 80%;
+		flex-direction: column;
+		align-items: center;
+	}
+	.number_page {
+		justify-content: center;
+		transform: scale(.7);
+	}
+	.details i{
+		position: absolute;
+		right: 10px;
+		top: 5px;
+		font-size: 1.5em;
+		cursor: pointer;
+		color: var(--bs-card-cap-color);
+	}
+	.border-info img {
+		margin-top: 40px;
+		width: 200px;
+	}
+	.details .card-title {
+		margin-top: 20px;
+	}
+	ul.card-text li{
+		width: 200px;
+	}
 }

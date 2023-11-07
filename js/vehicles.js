@@ -1,7 +1,18 @@
 document.addEventListener('DOMContentLoaded', function(){
-	// API
-	showLoader();
-	getVehicles(1, true);
+	const currentPage = 1;
+	const savedData = localStorage.getItem(`swapiDataVehiclesPage${currentPage}`);
+	if(savedData){
+		const data = JSON.parse(savedData);
+		hideLoader();
+		showAllVehicles(data.results);
+		createPagination(data.count, data.results.length);
+		document.querySelector('.number_page').classList.add('visible');
+		activePagination();
+	} else {
+		// API
+		showLoader();
+		getVehicles(currentPage, true);
+	}
 });
 
 // LOADER
@@ -19,6 +30,10 @@ function getVehicles(page, create = false){
 	let url = `https://swapi.dev/api/vehicles/?page=${page}`;
 	fetch(url)
 	.then(response => response.json())
+	.then(data => {
+		localStorage.setItem(`swapiDataVehiclesPage${page}`, JSON.stringify(data));
+		return data;
+	})
 	.then(data => {
 		hideLoader();
 		showAllVehicles(data.results);

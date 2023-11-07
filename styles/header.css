@@ -100,6 +100,7 @@ header {
 		position: absolute;
 		top: 0;
 		left: 0;
+		z-index: 10000;
 		background-color: #272b30;
 		padding: 20px;
 	}
@@ -130,6 +131,7 @@ header {
 		font-size: 30px;
 		position: absolute;
 		right: 40px;
+		cursor: pointer;
 	}
 
 	/* ACTIVE PAGE */

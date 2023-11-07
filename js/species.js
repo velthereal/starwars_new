@@ -1,7 +1,18 @@
 document.addEventListener('DOMContentLoaded', function(){
-	// API
-	showLoader();
-	getSpecies(1, true);
+	const currentPage = 1;
+	const savedData = localStorage.getItem(`swapiDataSpeciesPage${currentPage}`);
+	if(savedData){
+		const data = JSON.parse(savedData);
+		hideLoader();
+		showAllSpecies(data.results);
+		createPagination(data.count, data.results.length);
+		document.querySelector('.number_page').classList.add('visible');
+		activePagination();
+	} else {
+			// API
+		showLoader();
+		getSpecies(currentPage, true);
+	}
 });
 
 // LOADER
@@ -19,6 +30,10 @@ function getSpecies(page, create = false){
 	let url = `https://swapi.dev/api/species/?page=${page}`;
 	fetch(url)
 	.then(response => response.json())
+	.then(data => {
+		localStorage.setItem(`swapiDataSpeciesPage${page}`, JSON.stringify(data));
+		return data;
+	})
 	.then(data => {
 		hideLoader();
 		showAllSpecies(data.results);

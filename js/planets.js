@@ -1,7 +1,18 @@
 document.addEventListener('DOMContentLoaded', function(){
-	// API
-	showLoader();
-	getPlanets(1, true);
+	const currentPage = 1;
+	const savedData = localStorage.getItem(`swapiDataPlanetsPage${currentPage}`);
+	if(savedData){
+		const data = JSON.parse(savedData);
+		hideLoader();
+		showAllPlanets(data.results);
+		createPagination(data.count, data.results.length);
+		document.querySelector('.number_page').classList.add('visible');
+		activePagination();
+	} else {
+			// API
+		showLoader();
+		getPlanets(currentPage, true);
+	}
 });
 
 // LOADER
@@ -19,6 +30,10 @@ function getPlanets(page, create = false){
 	let url = `https://swapi.dev/api/planets/?page=${page}`;
 	fetch(url)
 	.then(response => response.json())
+	.then(data => {
+		localStorage.setItem(`swapiDataPlanetsPage${page}`, JSON.stringify(data));
+		return data;
+	})
 	.then(data => {
 		hideLoader();
 		showAllPlanets(data.results);

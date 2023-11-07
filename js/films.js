@@ -1,7 +1,18 @@
 document.addEventListener('DOMContentLoaded', function(){
-	// API
-	showLoader();
-	getFilms(1, true);
+	const currentPage = 1;
+	const savedData = localStorage.getItem(`swapiDataFilmsPage${currentPage}`);
+	if(savedData){
+		const data = JSON.parse(savedData);
+		hideLoader();
+		showAllFilms(data.results);
+		createPagination(data.count, data.results.length);
+		document.querySelector('.number_page').classList.add('visible');
+		activePagination();
+	} else {
+		// API
+		showLoader();
+		getFilms(currentPage, true);
+	}
 });
 
 // LOADER
@@ -20,6 +31,10 @@ function getFilms(page, create = false){
 
 	fetch(url)
 	.then(response => response.json())
+	.then(data => {
+		localStorage.setItem(`swapiDataFilmsPage${page}`, JSON.stringify(data));
+		return data;
+	})
 	.then(data => {
 		hideLoader();
 		showAllFilms(data.results);

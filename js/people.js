@@ -1,7 +1,18 @@
 document.addEventListener('DOMContentLoaded', function(){
-	// API
-	showLoader();
-	getPersons(1, true);
+	const currentPage = 1;
+	const savedData = localStorage.getItem(`swapiDataPage${currentPage}`);
+	if(savedData){
+		const data = JSON.parse(savedData);
+		hideLoader();
+		showAllPerson(data.results);
+		createPagination(data.count, data.results.length);
+		document.querySelector('.number_page').classList.add('visible');
+		activePagination();
+	} else {
+		// API
+		showLoader();
+		getPersons(currentPage, true);
+	}
 });
 
 // LOADER
@@ -20,6 +31,10 @@ function getPersons(page, create = false){
 	
 	fetch(url)
 	.then(response => response.json())
+	.then(data => {
+		localStorage.setItem(`swapiDataPage${page}`, JSON.stringify(data));
+		return data;
+	})
 	.then(data => {
 		hideLoader();
 		showAllPerson(data.results);
